@@ -17,17 +17,14 @@ type List = {
 };
 
 export default function Home() {
-  // 1. FIRST hook
   const { data: session, status } = useSession();
 
-  // 2. ALL other hooks next
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<OmdbMovie[]>([]);
   const [loading, setLoading] = useState(false);
   const [lists, setLists] = useState<List[]>([]);
   const [selectedListId, setSelectedListId] = useState<string | null>(null);
 
-  // 3. Effects – still before any `return`
   useEffect(() => {
     if (status === "authenticated") {
       fetch("/api/lists")
@@ -40,7 +37,7 @@ export default function Home() {
         })
         .catch((err) => console.error("Failed to load lists", err));
     }
-  }, [status]); // do NOT move this below returns
+  }, [status]);
 
   async function handleSearch(e: FormEvent) {
     e.preventDefault();
@@ -85,7 +82,6 @@ export default function Home() {
     alert("Added to list!");
   }
 
-  // 4. AFTER all hooks + effects: conditional returns
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -95,7 +91,6 @@ export default function Home() {
   }
 
   if (status === "unauthenticated") {
-    // You’re using a custom email+code sign-in page now:
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <h1 className="text-3xl font-semibold">🎬 My Movie Lists</h1>
@@ -112,7 +107,6 @@ export default function Home() {
     );
   }
 
-  // 5. Authenticated UI
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 flex flex-col items-center py-10 px-4">
       <header className="w-full max-w-3xl flex justify-between items-center mb-8">
@@ -195,7 +189,6 @@ export default function Home() {
               className="flex items-center gap-4 border rounded-lg p-3 bg-white"
             >
               {movie.Poster && movie.Poster !== "N/A" && (
-                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={movie.Poster}
                   alt={movie.Title}

@@ -6,7 +6,6 @@ type ListPageProps = {
 };
 
 export default async function PublicListPage(props: ListPageProps) {
-  // ✅ unwrap params (it's a Promise)
   const { id } = await props.params;
 
   const list = await prisma.list.findUnique({
@@ -42,7 +41,6 @@ export default async function PublicListPage(props: ListPageProps) {
               className="flex items-center gap-3 border rounded-md p-3"
             >
               {item.movie.posterUrl && (
-                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={item.movie.posterUrl}
                   alt={item.movie.title}

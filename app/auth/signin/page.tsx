@@ -22,13 +22,10 @@ export default function SignInPage() {
     setLoading(false);
 
     if (!res.ok) {
-      alert("Could not send code.");
-      return;
+        const data = await res.json().catch(() => null);
+        alert(data?.error ?? "Could not send code.");
+        return;
     }
-    const data = await res.json();
-
-    // 👇 DEV MODE: show the code directly
-    alert(`Your login code is: ${data.code}`);
 
     setStep("verify");
   }
@@ -40,7 +37,7 @@ export default function SignInPage() {
       email,
       code,
       redirect: true,
-      callbackUrl: "/", // go to home after login
+      callbackUrl: "/",
     });
     setLoading(false);
 

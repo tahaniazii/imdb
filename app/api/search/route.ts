@@ -23,7 +23,6 @@ export async function GET(req: Request) {
     );
 
     const data = await omdbRes.json();
-    // helpful log in your terminal
     console.log("OMDb response:", data);
 
     return NextResponse.json(data);

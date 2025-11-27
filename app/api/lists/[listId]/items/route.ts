@@ -7,7 +7,6 @@ export async function POST(
   req: Request,
   context: { params: Promise<{ listId: string }> }
 ) {
-  // ✅ unwrap params (it's a Promise in new Next.js)
   const { listId } = await context.params;
 
   const session = await getServerSession(authConfig);

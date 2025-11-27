@@ -19,7 +19,6 @@ export const authConfig: NextAuthOptions = {
 
         const now = new Date();
 
-        // latest unused code for this email
         const record = await prisma.loginCode.findFirst({
           where: {
             email: credentials.email,
@@ -32,13 +31,11 @@ export const authConfig: NextAuthOptions = {
         if (!record) return null;
         if (record.code !== credentials.code) return null;
 
-        // mark code as used
         await prisma.loginCode.update({
           where: { id: record.id },
           data: { used: true },
         });
 
-        // find or create user
         let user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });

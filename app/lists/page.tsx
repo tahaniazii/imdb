@@ -41,7 +41,6 @@ export default function MyListsPage() {
   }
 
   if (status === "unauthenticated") {
-    // not logged in → send them to your email sign-in page
     if (typeof window !== "undefined") {
       window.location.href = "/auth/signin";
     }
