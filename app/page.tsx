@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
-import Link from "next/link";
+import Link from "next/link"; 
 
 type OmdbMovie = {
   imdbID: string;
@@ -185,7 +185,7 @@ export default function Home() {
         <section className="grid gap-4">
           {results.map((movie) => (
             <div
-              key={movie.imdbID}
+              key={crypto.randomUUID().toString()}
               className="flex items-center gap-4 border rounded-lg p-3 bg-white"
             >
               {movie.Poster && movie.Poster !== "N/A" && (
